@@ -15,7 +15,9 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
+/* USER CODE 
+	This example searchs for one wire device and reads temperature.
+END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
@@ -44,7 +46,7 @@ TIM_HandleTypeDef htim5;
 
 /* USER CODE BEGIN PV */
 DeviceAddress deviceAddress;
-float sicaklik;
+float temperature;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -90,9 +92,8 @@ int main(void)
   MX_GPIO_Init();
   MX_TIM5_Init();
   /* USER CODE BEGIN 2 */
-  one_wire_Init_Timer(&htim5, 1, oneWire_GPIO_Port, oneWire_Pin);
-  onewire_search(deviceAddress, MODE_NORMAL);
-  uint8_t val;
+  one_wire_Init_Timer(&htim5, 1, oneWire_GPIO_Port, oneWire_Pin); // Initilize one wire
+  onewire_search(deviceAddress, MODE_NORMAL);	// implement one wire search for 1 time. If multiple devices connacted u can use for loop to get their ROM ids.
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -103,8 +104,8 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 
-	//sicaklik = getTemperature_OneDevice();
-	  sicaklik = getTemperature(deviceAddress);
+	//temperature = getTemperature_OneDevice();    // U can use this function if only one dveice connect.	
+	  temperature = getTemperature(deviceAddress); // Gets temperature from given device with its unique ROM id 
   }
   /* USER CODE END 3 */
 }
